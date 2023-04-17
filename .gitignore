@@ -1,1 +1,7 @@
-.venv
+.venv/
+app/__pycache__/
+app/mod_main/__pycache__/
+app/mod_test/__pycache__/
+app/mod_user/__pycache__/
+instance/
+
