@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block title %}Sign Up | {% endblock %}
+
+{% block content %}
+
+    <section class="hero">
+        <div class="hero-body">
+            <div class="container has-text-centered">
+                <div class="column is-4 is-offset-4">
+                    <h3 class="title has-text-black">Sign Up</h3>
+                    <hr class="login-hr">
+                    <p class="subtitle has-text-black">Please sign up to proceed.</p>
+                    <div class="box">
+                        <!--
+                        <figure class="avatar">
+                            <img src="https://via.placeholder.com/150">
+                        </figure>
+                        -->
+                        {% with messages = get_flashed_messages() %}
+                        {% if messages %}
+                            <div class="notification is-danger">
+                                {{ messages[0] }}. Go to <a href="{{ url_for('auth.login') }}">login page</a>.
+                            </div>
+                        {% endif %}
+                        {% endwith %}
+                        <form method="POST" action="">
+                            {{ form.csrf_token }}
+                            {{ form.hidden_tag() }}
+                            <div class="field">
+                                <div class="control">
+                                    <p class="control has-icons-left has-icons-right">
+                                        <input class="input is-normal" name="{{ form.email.name }}" type="email" placeholder="{{ form.email.render_kw.placeholder }}" autofocus="">
+                                        <span class="icon is-small is-left">
+                                            <i class="fas fa-envelope"></i>
+                                        </span>
+                                        <span class="icon is-small is-right">
+                                            <i class="fas fa-check"></i>
+                                        </span>
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="field">
+                                <div class="control">
+                                    <p class="control has-icons-left">
+                                        <input class="input is-normal" type="password" name="{{ form.password.name }}" placeholder="{{ form.password.render_kw.placeholder }}">
+                                        <span class="icon is-small is-left">
+                                            <i class="fas fa-lock"></i>
+                                        </span>
+                                    </p>
+                                </div>
+                            </div>
+                            <button class="button is-block is-info is-normal is-fullwidth" name="{{ form.submit.name }}" >Sign Up <i class="fa-solid fa-user-plus" aria-hidden="true"></i></button>
+                        </form>
+                    </div>
+                    <p class="has-text-grey">
+                        <a href="../">Need Help?</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

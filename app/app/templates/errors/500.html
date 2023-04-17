@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %}Page not Found | {% endblock %}
+
+{% block content %}
+    <section class="hero is-warning is-halfheight">
+        <div class="hero-body">
+            <div class="container has-text-centered">
+                <h1 class="title is">Uh-Oh..</h1>
+                <h2 style="font-size:120px">500!</h2>
+                <p class="subtitle">Internal Server Error.</p>
+                <p class="subtitle">Go back to <a href="{{url_for('main.index')}}"><u>Home</u></a></p>
+                <h1>{{ error }}</h1>
+            </div>
+        </div>
+    </section>
+{% endblock %}

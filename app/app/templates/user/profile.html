@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+
+{% block title %}Profile | {% endblock %}
+
+{% block content %}
+    <section class="hero is-info is-small is-bold">
+        <div class="hero-body">
+            <div class="container has-text-centered">
+                <div class="column is-three-fifths is-offset-one-fifth">
+                    <h1 class="title has-text-white">Profile:</h1>
+                    <div class="box">
+                        
+                        <figure class="avatar">
+                        {% if current_user.image_filename == None %}
+                            <img class="is-rounded" src="https://via.placeholder.com/150">
+                        {% else %}
+                            <img class="" src="{{ url_for('static', filename='profile_pics/' + current_user.image_filename) }}" height="250" width="200">
+                        {% endif %}
+                        </figure>
+                        <form method="POST" action="" enctype="multipart/form-data">
+                            {{ form.csrf_token }}
+                            {{ form.hidden_tag() }}                      
+                            <div class="field">
+                                <div class="file has-name">
+                                    <label class="file-label">
+                                    <input class="file-input" type="file" name="{{ form.image_filename.name }}">
+                                    <span class="file-cta">
+                                        <span class="file-icon">
+                                        <i class="fas fa-upload"></i>
+                                        </span>
+                                        <span class="file-label">
+                                        Choose a file…
+                                        </span>
+                                    </span>
+                                    <span class="file-name">
+                                        Select an image file
+                                    </span>
+                                    </label>
+                                </div>
+                            </div>
+   
+
+                            {% if current_user.name == None %}
+                            <div class="field">
+                                <div class="control">
+                                    <input class="input is-normal" name="{{ form.name.name }}" type="text" placeholder="{{ form.name.render_kw.placeholder }}" autofocus="">
+                                </div>
+                            </div>
+                            {% else %}
+                            <div class="field">
+                                <div class="control">
+                                    <input class="input is-normal" name="{{ form.name.name }}" value="{{ current_user.name }}" type="text" placeholder="{{ form.name.render_kw.placeholder }}" autofocus="">
+                                </div>
+                            </div>
+                            {% endif %}
+                            <div class="field">
+                                <div class="control">
+                                    <input class="input is-normal" name="{{ form.email.name }}" type="email" value="{{ current_user.email }}" placeholder="{{ form.email.render_kw.placeholder }}" autofocus="">
+                                </div>
+                            </div>
+
+                            <div class="field">
+                                <div class="control">
+                                    <input class="input is-normal" type="password" name="{{ form.password.name }}" placeholder="{{ form.password.render_kw.placeholder }}">
+                                </div>
+                            </div>
+                            <div class="field">
+                                <div class="control">
+                                    <input class="input is-normal" type="password" name="{{ form.password_confirmation.name }}" placeholder="{{ form.password_confirmation.render_kw.placeholder }}">
+                                </div>
+                            </div>
+                            <button class="button is-block is-info is-normal is-fullwidth" name="{{ form.submit.name }}" >Update <i class="fa-solid fa-pen-to-square" aria-hidden="true"></i></button>
+                    </form>
+                    <br>    
+                    {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        {% for category, message in messages %}
+                            <div class="notification is-{{ category }}">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                    {% endwith %}
+                    {{ picture_path }}
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

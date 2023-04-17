@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block title %}Test | {% endblock %}
+
+{% block content %}
+
+
+<div class="container">
+<table class="table">
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Code</th>
+        <th>Name</th>  
+        <th>Category</th>
+        <th><abbr title="Quantity">Qty</abbr></th>
+        <th>Location</th>
+        <th>Description</th>
+        <th><abbr title="Options">Options</abbr></th>
+      </tr>
+    </thead>
+    <tfoot>
+    <tr>
+        <th>Id</th>
+        <th>Code</th>
+        <th>Name</th>  
+        <th>Category</th>
+        <th><abbr title="Quantity">Qty</abbr></th>
+        <th>Location</th>
+        <th>Description</th>
+        <th><abbr title="Options">Options</abbr></th>
+    </tr>
+    </tfoot>
+    <tbody>
+        {% for item in items %}
+        <tr>
+            <th>{{ item.id }}</th>
+            <td>{{ item.code }}</td>
+            <td>{{ item.name }}</td>
+            <td>{{ item.category }}</td>
+            <td>{{ item.quantity }}</td>
+            <td>{{ item.location }}</td>
+            <td>{{ item.description }}</td>
+            <td>Icons</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+  </table>
+</div>
+    
+
+{% endblock %}

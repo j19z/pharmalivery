@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block title %}About | {% endblock %}
+
+{% block content %}
+
+    <section class="hero is-info is-halfheight is-bold">
+        <div class="hero-body">
+            <div class="container has-text-centered">
+                <h1 class="title">About</h1>
+            </div>
+        </div>
+    </section>
+
+    <section class="hero is-halfheight is-link is-bold">
+        <div class="hero-body">
+            <div class="container has-text-centered">
+                <h1 class="title">This is the About Page</h1>
+                <p class="subtitle">Lets do this!</p>
+                <p class="subtitle"><a href="{{url_for('main.dashboard')}}"><u>Dashboard</u></a></p>
+            </div>
+        </div>
+    </section>
+{% endblock %}
