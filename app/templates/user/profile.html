@@ -12,7 +12,7 @@
                         
                         <figure class="avatar">
                         {% if current_user.image_filename == None %}
-                            <img class="is-rounded" src="https://via.placeholder.com/150">
+                            <img class="is-rounded" src="{{ url_for('static', filename='profile_pics/profile_default.jpeg') }}">
                         {% else %}
                             <img class="" src="{{ url_for('static', filename='profile_pics/' + current_user.image_filename) }}" height="250" width="200">
                         {% endif %}
