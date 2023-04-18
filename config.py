@@ -9,8 +9,11 @@ class Config:
     PROPAGATE_EXCEPTIONS = True
 
     #Database
-    SQLALCHEMY_DATABASE_URI = 'sqlite:///database.db'
+    #SQLALCHEMY_DATABASE_URI = 'sqlite:///database.db'
+    #SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://DB_USERNAME:DB_PASSWORD@DB_HOST/DB_NAME'
+
+    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://root:12345@localhost/pharmalivery_db'
 
     PROFILE_PIC_FOLDER = 'static\\profile_pics'
     
-    # Other Variables
+    #Other Variables

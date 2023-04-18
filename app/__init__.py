@@ -27,7 +27,7 @@ def create_app():
     ### flask-login ###
     ###################
 
-    login_manager.login_view = 'login'
+    login_manager.login_view = 'auth.login'
 
     from app.models import User
     @login_manager.user_loader
@@ -57,9 +57,9 @@ def create_app():
 	#### restart db ####
 	####################
 
-    # with app.app_context():
-    #     db.drop_all()
-    #     db.create_all()
+    with app.app_context():
+        db.drop_all()
+        db.create_all()
 
 
     return app
