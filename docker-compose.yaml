@@ -1,8 +1,8 @@
 services:
   db:
-    # We use a mariadb image which supports both amd64 & arm64 architecture
+    # mariadb image supports both amd64 & arm64 architecture
     image: mariadb:10-focal
-    # If you really want to use MySQL, uncomment the following line
+    # MySQL Image
     #image: mysql:8
     command: '--default-authentication-plugin=mysql_native_password'
     restart: always
@@ -34,6 +34,8 @@ services:
       context: .
       target: builder
     restart: always
+    volumes:
+      - static:/app/app/static
     secrets:
       - db-password
     ports:
@@ -52,17 +54,19 @@ services:
       - 80:80
     depends_on:
       - backend
+    volumes:
+      - static:/usr/share/nginx/html/static
     networks:
       - frontnet
 
 volumes:
   db-data:
+  static:
 
 secrets:
   db-password:
     file: password.txt
 
-#check these two apparently i dont need both
 networks:
   backnet:
   frontnet:

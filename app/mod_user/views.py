@@ -6,7 +6,7 @@ from werkzeug.utils import secure_filename
 from app.extensions import db, bcrypt
 from app.models import User
 from app.mod_user.forms import LoginForm, SignupForm, ProfileUserForm
-
+import shutil
 
 auth = Blueprint('auth', __name__)
 
