@@ -15,6 +15,5 @@ class Config:
     SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://root:baTTi30fora@db/pharmalivery_db'
 
     PROFILE_PIC_FOLDER = 'static//profile_pics'
-    #PROFILE_PIC_FOLDER = '/app/shared_data'
 
     #Other Variables
