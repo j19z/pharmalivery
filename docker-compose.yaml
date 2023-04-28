@@ -1,9 +1,6 @@
 services:
   db:
-    # mariadb image supports both amd64 & arm64 architecture
-    image: mariadb:10-focal
-    # MySQL Image
-    #image: mysql:8
+    build: ./db
     command: '--default-authentication-plugin=mysql_native_password'
     restart: always
     healthcheck:
@@ -19,20 +16,17 @@ services:
       - backnet
     environment:
       - MYSQL_DATABASE=pharmalivery_db
-      - MYSQL_ROOT_PASSWORD_FILE=/run/secrets/db-password
+        #SERVER
+      #- MYSQL_ROOT_PASSWORD_FILE=/run/secrets/db-password
+        #LOCAL - DOCKER
+      - MYSQL_ROOT_PASSWORD=12345
     expose:
       - 3306
       - 33060
 
   backend:
-    #command: gunicorn --bind 0.0.0.0:8000 --workers 4 "app:create_app()"
-    #command: gunicorn --bind 0.0.0.0:8000 "app:create_app()"
-    # --worker-class (Default: "sync", "gthread", "geventeventlet/gevent", tornado) 
     command: gunicorn --bind 0.0.0.0:8000 --worker-class gthread "app:create_app()"
-    build:
-      #context: backend
-      context: .
-      target: builder
+    build: ./backend
     restart: always
     volumes:
       - static:/app/app/static
@@ -65,7 +59,7 @@ volumes:
 
 secrets:
   db-password:
-    file: password.txt
+    file: .db/password.txt
 
 networks:
   backnet:

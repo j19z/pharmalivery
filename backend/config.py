@@ -11,8 +11,11 @@ class Config:
     #Database
     #SQLALCHEMY_DATABASE_URI = 'sqlite:///database.db'
     #SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://DB_USERNAME:DB_PASSWORD@DB_HOST/DB_NAME'
-
-    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://root:baTTi30fora@db/pharmalivery_db'
+    
+    #Server
+    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://root:12345@db/pharmalivery_db'
+    #Development
+    #SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://root:12345@localhost/pharmalivery_db'
 
     PROFILE_PIC_FOLDER = 'static//profile_pics'
 
