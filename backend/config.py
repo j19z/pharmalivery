@@ -8,6 +8,14 @@ class Config:
     TESTING = True
     PROPAGATE_EXCEPTIONS = True
 
+    #Mail
+    MAIL_SERVER = 'smtp.gmail.com'
+    MAIL_PORT = 465
+    MAIL_USERNAME = 'j19z.python@gmail.com'
+    MAIL_PASSWORD = 'jarjbcedbedjhmzs'
+    MAIL_USE_TLS = False
+    MAIL_USE_SSL = True
+
     #Database
     #SQLALCHEMY_DATABASE_URI = 'sqlite:///database.db'
     #SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://DB_USERNAME:DB_PASSWORD@DB_HOST/DB_NAME'

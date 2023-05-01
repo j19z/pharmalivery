@@ -32,3 +32,7 @@ class ProfileUserForm(FlaskForm):
     password_confirmation = PasswordField(validators=[Optional(), Length(min=4, max=20)], render_kw={'placeholder':'Confirm Password'})
     image_filename = FileField(label='Image', validators=[FileAllowed(['jpg','png','jpeg'])])
     submit = SubmitField('Update')
+
+class ForgotPasswordForm(FlaskForm):
+    email = StringField(validators=[InputRequired(), Length(min=4, max=20)], render_kw={'placeholder':'Email'})
+    submit = SubmitField('Send Reset Link')

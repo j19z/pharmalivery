@@ -1,14 +1,12 @@
-import os
-import uuid as uuid
-from flask import Blueprint, render_template, flash, redirect, url_for, current_app
+from flask import Blueprint, render_template, flash, redirect, url_for
 from flask_login import login_required, current_user, logout_user, login_user
-from werkzeug.utils import secure_filename
 from app.extensions import db, bcrypt
 from app.models import User
-from app.mod_user.forms import LoginForm, SignupForm, ProfileUserForm
-import shutil
+from app.mod_user.forms import LoginForm, SignupForm, ProfileUserForm, ForgotPasswordForm
+from app.utils import send_email, save_image, delete_image, generate_password
 
 auth = Blueprint('auth', __name__)
+
 
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
@@ -48,18 +46,6 @@ def logout():
     return redirect(url_for('auth.login'))
 
 
-def save_image(image_file):
-    image_filename = secure_filename(image_file.filename)
-    image_filename_UUID = str(uuid.uuid1()) + '_' + image_filename
-    image_path = os.path.join(current_app._get_current_object().root_path, current_app.config.get('PROFILE_PIC_FOLDER'), image_filename_UUID)
-    image_file.save(image_path)
-    return image_filename_UUID
-
-def delete_image(image_filename):
-    image_path = os.path.join(current_app._get_current_object().root_path, current_app.config.get('PROFILE_PIC_FOLDER'), image_filename)
-    if (os.path.exists(image_path)):
-        os.remove(image_path)
-
 @auth.route('/profile', methods=['GET', 'POST'])
 @login_required
 def profile():
@@ -91,3 +77,31 @@ def profile():
             db.session.commit()
             flash('User profile was successfully updated', 'success')  
     return render_template('user/profile.html', form=form, image_filename=image_filename)
+
+
+@auth.route('/forgot_password', methods=['GET', 'POST'])
+def forgot_password():
+    form = ForgotPasswordForm()
+
+    if form.validate_on_submit():
+        user = User.query.filter_by(email=form.email.data).first()
+        if user:
+            email = form.email.data
+            new_password = generate_password(8)
+            subject = 'New Password'
+            sender = 'j19z.python@gmail.com'
+            recipients = [email]
+            body = f'Your new password is:{new_password}'
+            success = send_email(subject, sender, recipients, body)
+
+            if success:
+                hashed_password = bcrypt.generate_password_hash(new_password)
+                user.password = hashed_password
+                db.session.commit()
+                flash('Please check your email to verify your identity and continue. Thanks!', 'success')
+            else:
+                flash('Coudnt send email, please try again later.', 'danger')
+        else:
+            flash('Check your email.', 'danger')
+
+    return render_template('user/forgot_password.html', form=form)

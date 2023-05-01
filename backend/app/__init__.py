@@ -11,10 +11,8 @@ def create_app():
     bcrypt.init_app(app)
     login_manager.init_app(app)
 
-	###################
-	### blueprints ####
-	###################
 
+	# Blueprints
     from app.mod_main.views import main as main_blueprint
     from app.mod_user.views import auth as auth_blueprint
     from app.mod_test.views import test as test_blueprint
@@ -23,10 +21,8 @@ def create_app():
     app.register_blueprint(auth_blueprint)
     app.register_blueprint(test_blueprint)
     
-    ###################
-    ### flask-login ###
-    ###################
 
+    #Flask-Login
     login_manager.login_view = 'auth.login'
 
     from app.models import User
@@ -34,10 +30,8 @@ def create_app():
     def load_user(user_id):
         return db.session.get(User, int(user_id))
 
-    ########################
-	#### error handlers ####
-	########################
 
+	#Error Handlers
     @app.errorhandler(403)
     def forbidden_page(error):
         return render_template("errors/403.html"), 403
@@ -53,10 +47,7 @@ def create_app():
         return render_template("errors/500.html", error = error), 500
 
 
-    ####################
-	#### restart db ####
-	####################
-
+	#Restart DB
     with app.app_context():
         db.drop_all()
         db.create_all()
